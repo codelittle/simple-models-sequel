@@ -1,0 +1,7 @@
+<a href="/" class="button large new">Back</a>
+
+<h1><%= @page_title %></h1>
+<p class="description"><%= @page_description %></p>
+
+<!-- form partial -->
+<%= erb :_form, locals: {action: "post", route: "/create"} %>

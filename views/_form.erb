@@ -1,0 +1,50 @@
+<% if !@contact.errors.empty? %>
+<div class="row">
+  <div class="columns-12">
+    <div id="form-errors">
+      <% @contact.errors.full_messages.each do |msg| %>
+      <div class="error">
+        <%= @contact.pretty_names(msg) %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+<div class="row">
+  <form action="<%= route %>" method="<%= action %>" accept-charset="utf-8">
+  <div class="columns-6">
+    <label for="first_name">First Name:</label>
+    <input type="text" name="contact[first_name]" 
+        id="first_name" value="<%= @contact.first_name %>" />
+  </div>
+  <div class="columns-6">
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="contact[last_name]" 
+        id="last_name" value="<%= @contact.last_name %>" />
+  </div>
+  <div class="columns-6">
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="contact[phone_number]" 
+        id="phone_number" value="<%= @contact.phone_number %>" />
+  </div>
+  <div class="columns-6">
+    <label for="email_address">Email Address:</label>
+    <input type="text" name="contact[email_address]" 
+        id="email_address" value="<%= @contact.email_address %>" />
+  </div>
+  <div class="columns-6">
+    <label for="full_address">Full Address</label>
+    <textarea name="contact[full_address]" 
+         id="full_address" rows="4" cols="40"><%= @contact.full_address %></textarea>
+  </div>
+  <div class="columns-6">
+    <label for="notes">Notes:</label>
+    <textarea name="contact[notes]" 
+        id="notes" rows="4" cols="40"><%= @contact.notes %></textarea>
+  </div>
+  <div class="columns-12">
+    <button type="submit">Save Contact</button>
+  </div>
+</form>
+</div>
