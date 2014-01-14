@@ -8,7 +8,14 @@ enable :sessions
 get '/' do
   @page_title = "Contacts"
   @page_description = "Phonebook Application Example"
-  @contacts = Contact.all
+  @contacts = Contact.order(:first_name)
+  @collections = {}
+  letters = @contacts.map { |contact| contact.first_name.chars.first.capitalize }.uniq
+  letters.each do |letter|
+    @collections[letter.to_sym] = @contacts.map do |contact|
+      contact if contact.first_name.chars.first.capitalize == letter
+    end.compact!
+  end
   erb :contacts
 end
 
@@ -24,7 +31,7 @@ post '/create' do
   @contact.set_fields(params[:contact], [:first_name, :last_name, :phone_number, :email_address, :full_address, :notes])
   @contact.created_at = Time.now.to_s
   if @contact.valid?
-    @contact.save # all good, let's save the model
+    @contact.save # all good, let's savje the model
     flash[:notice] = "Awesome, the new entry has been added successfully."
     redirect "/"
   else
